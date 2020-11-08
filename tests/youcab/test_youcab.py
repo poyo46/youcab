@@ -71,7 +71,7 @@ def test__auto_node_format_if_not_found(monkeypatch):
     "tokenizer",
     [
         lambda x: [
-            Word("面白い", ["形容詞", "一般"], base="面白い", c_type="形容詞", c_form="連体形-一般"),
+            Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"]),
             Word("よく", ["副詞"]),
@@ -89,7 +89,7 @@ def test__check_tokenizer_returns_none_if_valid(tokenizer):
     [
         lambda x: [],  # invalid length
         lambda x: [
-            Word("面白い", ["形容詞", "一般"], base="面白い", c_type="形容詞", c_form="連体形-一般"),
+            Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"]),
             Word("良く", ["副詞"]),  # invalid surface
@@ -97,7 +97,7 @@ def test__check_tokenizer_returns_none_if_valid(tokenizer):
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],
         lambda x: [
-            Word("面白い", ["形容詞", "一般"], base="面白い", c_type="形容詞", c_form="連体形-一般"),
+            Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["noun"]),  # invalid pos
             Word("を", ["助詞", "格助詞"]),
             Word("よく", ["副詞"]),
@@ -105,7 +105,7 @@ def test__check_tokenizer_returns_none_if_valid(tokenizer):
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],
         lambda x: [
-            Word("面白い", ["形容詞", "一般"], base="面白い", c_type="形容詞", c_form="連体形-一般"),
+            Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"]),
             Word("よく", ["副詞"], base=""),  # invalid base
@@ -113,7 +113,7 @@ def test__check_tokenizer_returns_none_if_valid(tokenizer):
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],
         lambda x: [
-            Word("面白い", ["形容詞", "一般"], base="面白い", c_type="形容詞", c_form="連体形-一般"),
+            Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"], c_type="X", c_form="Y"),  # invalid conjugation
             Word("よく", ["副詞"]),
@@ -129,6 +129,7 @@ def test__check_tokenizer_raises_error_if_invalid(tokenizer):
 
 def test_can_generate_tokenizer(dicdirs):
     for dicdir in dicdirs:
+        print("dicdir = " + str(dicdir))
         youcab.generate_tokenizer(dicdir=dicdir)
 
 

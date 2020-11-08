@@ -154,8 +154,8 @@ def _check_tokenizer(tokenizer: Callable[[str], List[Word]]) -> None:
     InvalidTokenizerError
         If the tokenizer is not working properly.
     """
-    tokens = ["面白い", "本", "を", "よく", "読み", "ます"]
-    conj_tokens = ["面白い", "読み", "ます"]
+    tokens = ["楽しい", "本", "を", "よく", "読み", "ます"]
+    conj_tokens = ["楽しい", "読み", "ます"]
     words = tokenizer("".join(tokens))
     if len(words) != len(tokens):
         raise InvalidTokenizerError
