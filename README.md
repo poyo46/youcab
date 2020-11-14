@@ -27,8 +27,8 @@ The tokenizer converts text into a list of [Word](https://github.com/poyo46/youc
 ```python
 from youcab import youcab
 
-tokenizer = youcab.generate_tokenizer()
-words = tokenizer("本を読んだ")
+tokenize = youcab.generate_tokenizer()
+words = tokenize("本を読んだ")
 for word in words:
     print("surface: " + word.surface)
     print("pos    : " + str(word.pos))
@@ -73,5 +73,5 @@ Dictionaries such as IPAdic, [UniDic](https://unidic.ninjal.ac.jp/) and [neologd
 ```python
 from youcab import youcab
 
-tokenizer = youcab.generate_tokenizer(dicdir="/path/to/mecab/dic/dir/")
+tokenize = youcab.generate_tokenizer(dicdir="/path/to/mecab/dic/dir/")
 ```

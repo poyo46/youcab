@@ -136,27 +136,27 @@ def _auto_node_format(dicdir: Optional[str] = None) -> Optional[str]:
     return node_format
 
 
-def _check_tokenizer(tokenizer: Callable[[str], List[Word]]) -> None:
-    """Check that the tokenizer is working properly.
+def _check_tokenizer(tokenize: Callable[[str], List[Word]]) -> None:
+    """Check that the tokenize function is working properly.
 
     Parameters
     ----------
-    tokenizer : function
-        Tokenizer function.
+    tokenize : function
+        Tokenize function.
 
     Returns
     -------
     None
-        Return None when the tokenizer is working properly.
+        Return None when the tokenize function is working properly.
 
     Raises
     ------
     InvalidTokenizerError
-        If the tokenizer is not working properly.
+        If the tokenize function is not working properly.
     """
     tokens = ["楽しい", "本", "を", "よく", "読み", "ます"]
     conj_tokens = ["楽しい", "読み", "ます"]
-    words = tokenizer("".join(tokens))
+    words = tokenize("".join(tokens))
     if len(words) != len(tokens):
         raise InvalidTokenizerError
     for word, token in zip(words, tokens):
@@ -182,7 +182,7 @@ def generate_tokenizer(
     node_format : str, optional
         MeCab ``node_format`` that matches the format
         ``node-format=surface,pos,baseForm,cType,cForm\\n``.
-        If not specified, youcab will try to set it automatically.
+        If not specified, YouCab will try to set it automatically.
 
     Returns
     -------
@@ -196,8 +196,8 @@ def generate_tokenizer(
 
     Examples
     --------
-    >>> tokenizer = generate_tokenizer()
-    >>> words = tokenizer("毎日とても歩きます")
+    >>> tokenize = generate_tokenizer()
+    >>> words = tokenize("毎日とても歩きます")
     >>> assert [word.surface for word in words] == ["毎日", "とても", "歩き", "ます"]
     >>> assert [word.base for word in words if word.pos[0] == "動詞"] == ["歩く"]
     """
@@ -208,7 +208,7 @@ def generate_tokenizer(
 
     blank = ("", " ", "　")
 
-    def _tokenizer(text: str) -> List[Word]:
+    def _tokenize(text: str) -> List[Word]:
         parsed = mecab_tagger.parse(text)
 
         if parsed is None:
@@ -237,6 +237,6 @@ def generate_tokenizer(
 
         return words
 
-    _check_tokenizer(_tokenizer)
+    _check_tokenizer(_tokenize)
 
-    return _tokenizer
+    return _tokenize

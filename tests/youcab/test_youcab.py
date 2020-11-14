@@ -68,7 +68,7 @@ def test__auto_node_format_if_not_found(monkeypatch):
 
 
 @pytest.mark.parametrize(
-    "tokenizer",
+    "tokenize",
     [
         lambda x: [
             Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
@@ -80,12 +80,12 @@ def test__auto_node_format_if_not_found(monkeypatch):
         ]
     ],
 )
-def test__check_tokenizer_returns_none_if_valid(tokenizer):
-    assert youcab._check_tokenizer(tokenizer) is None
+def test__check_tokenizer_returns_none_if_valid(tokenize):
+    assert youcab._check_tokenizer(tokenize) is None
 
 
 @pytest.mark.parametrize(
-    "tokenizer",
+    "tokenize",
     [
         lambda x: [],  # invalid length
         lambda x: [
@@ -122,9 +122,9 @@ def test__check_tokenizer_returns_none_if_valid(tokenizer):
         ],
     ],
 )
-def test__check_tokenizer_raises_error_if_invalid(tokenizer):
+def test__check_tokenizer_raises_error_if_invalid(tokenize):
     with pytest.raises(InvalidTokenizerError):
-        youcab._check_tokenizer(tokenizer)
+        youcab._check_tokenizer(tokenize)
 
 
 def test_can_generate_tokenizer(dicdirs):
@@ -154,16 +154,16 @@ def test_generated_tokenizer_returns_unknown_token_as_noun(monkeypatch):
         tagger = MecabTagger()
         return tagger
 
-    def check_tokenizer(tokenizer: Callable[[str], List[Word]]) -> None:
+    def check_tokenizer(tokenize: Callable[[str], List[Word]]) -> None:
         return None
 
     monkeypatch.setattr(youcab, "_auto_node_format", auto_node_format)
     monkeypatch.setattr(youcab, "_mecab_tagger", mecab_tagger)
     monkeypatch.setattr(youcab, "_check_tokenizer", check_tokenizer)
 
-    tokenizer = youcab.generate_tokenizer()
+    tokenize = youcab.generate_tokenizer()
     text = "これは未知語です！"
-    words = tokenizer(text)
+    words = tokenize(text)
     assert len(words) == 1
     assert words[0].surface == text
     assert words[0].pos == ["名詞"]
