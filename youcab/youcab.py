@@ -136,7 +136,7 @@ def _auto_node_format(dicdir: Optional[str] = None) -> Optional[str]:
     return node_format
 
 
-def _check_tokenizer(tokenize: Callable[[str], List[Word]]) -> None:
+def check_tokenizer(tokenize: Callable[[str], List[Word]]) -> None:
     """Check that the tokenize function is working properly.
 
     Parameters
@@ -237,6 +237,6 @@ def generate_tokenizer(
 
         return words
 
-    _check_tokenizer(_tokenize)
+    check_tokenizer(_tokenize)
 
     return _tokenize

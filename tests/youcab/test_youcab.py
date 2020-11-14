@@ -80,8 +80,8 @@ def test__auto_node_format_if_not_found(monkeypatch):
         ]
     ],
 )
-def test__check_tokenizer_returns_none_if_valid(tokenize):
-    assert youcab._check_tokenizer(tokenize) is None
+def test_check_tokenizer_returns_none_if_valid(tokenize):
+    assert youcab.check_tokenizer(tokenize) is None
 
 
 @pytest.mark.parametrize(
@@ -122,9 +122,9 @@ def test__check_tokenizer_returns_none_if_valid(tokenize):
         ],
     ],
 )
-def test__check_tokenizer_raises_error_if_invalid(tokenize):
+def test_check_tokenizer_raises_error_if_invalid(tokenize):
     with pytest.raises(InvalidTokenizerError):
-        youcab._check_tokenizer(tokenize)
+        youcab.check_tokenizer(tokenize)
 
 
 def test_can_generate_tokenizer(dicdirs):
@@ -159,7 +159,7 @@ def test_generated_tokenizer_returns_unknown_token_as_noun(monkeypatch):
 
     monkeypatch.setattr(youcab, "_auto_node_format", auto_node_format)
     monkeypatch.setattr(youcab, "_mecab_tagger", mecab_tagger)
-    monkeypatch.setattr(youcab, "_check_tokenizer", check_tokenizer)
+    monkeypatch.setattr(youcab, "check_tokenizer", check_tokenizer)
 
     tokenize = youcab.generate_tokenizer()
     text = "これは未知語です！"
