@@ -74,7 +74,7 @@ def test__auto_node_format_if_not_found(monkeypatch):
             Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"]),
-            Word("よく", ["副詞"]),
+            Word("よく", ["副詞"], base="良く"),
             Word("読み", ["動詞", "一般"], base="読む", c_type="五段-マ行", c_form="連用形-一般"),
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ]
@@ -92,7 +92,7 @@ def test_check_tokenizer_returns_none_if_valid(tokenize):
             Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"]),
-            Word("良く", ["副詞"]),  # invalid surface
+            Word("良く", ["副詞"], base="良く"),  # invalid surface
             Word("読み", ["動詞", "一般"], base="読む", c_type="五段-マ行", c_form="連用形-一般"),
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],
@@ -100,7 +100,7 @@ def test_check_tokenizer_returns_none_if_valid(tokenize):
             Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["noun"]),  # invalid pos
             Word("を", ["助詞", "格助詞"]),
-            Word("よく", ["副詞"]),
+            Word("よく", ["副詞"], base="良く"),
             Word("読み", ["動詞", "一般"], base="読む", c_type="五段-マ行", c_form="連用形-一般"),
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],
@@ -116,7 +116,7 @@ def test_check_tokenizer_returns_none_if_valid(tokenize):
             Word("楽しい", ["形容詞", "一般"], base="楽しい", c_type="形容詞", c_form="連体形-一般"),
             Word("本", ["名詞", "普通名詞", "一般"]),
             Word("を", ["助詞", "格助詞"], c_type="X", c_form="Y"),  # invalid conjugation
-            Word("よく", ["副詞"]),
+            Word("よく", ["副詞"], base="良く"),
             Word("読み", ["動詞", "一般"], base="読む", c_type="五段-マ行", c_form="連用形-一般"),
             Word("ます", ["助動詞"], base="ます", c_type="助動詞-マス", c_form="終止形-一般"),
         ],

@@ -227,7 +227,7 @@ def generate_tokenizer(
             c_form = attrs[4]
 
             if c_type in blank and c_form in blank:
-                word = Word(surface=surface, pos=pos)
+                word = Word(surface=surface, pos=pos, base=base)
             else:
                 word = Word(
                     surface=surface, pos=pos, base=base, c_type=c_type, c_form=c_form
