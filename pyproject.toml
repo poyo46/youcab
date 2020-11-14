@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "youcab"
-version = "0.1.1"
+version = "0.1.2"
 description = "Converts MeCab parsing results to Python objects."
 license = "BSD-3-Clause"
 authors = [
