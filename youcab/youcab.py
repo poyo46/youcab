@@ -1,4 +1,3 @@
-import os
 import re
 from typing import Callable, List, Optional
 
@@ -14,10 +13,6 @@ def _mecab_tagger(
     unk_format: Optional[str] = None,
 ) -> MeCab.Tagger:
     """Generate MeCab.Tagger
-
-    Notes
-    -----
-    ``dicdir`` can also be specified as the environment variable ``MECAB_DICDIR``.
 
     Parameters
     ----------
@@ -40,9 +35,7 @@ def _mecab_tagger(
     options = []
 
     if dicdir is not None:
-        options.append("--dicdir=" + dicdir)
-    elif os.getenv("MECAB_DICDIR") is not None:
-        options.append("--dicdir=" + os.getenv("MECAB_DICDIR"))
+        options.append("--dicdir=" + str(dicdir))
 
     if node_format is not None:
         options.append("--output-format-type=")  # Dealing with the MeCab bug.

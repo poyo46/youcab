@@ -1,4 +1,4 @@
 #!/bin/bash
 
-poetry run pytest -v -s -p no:warnings -p no:cacheprovider --cov=youcab --cov-branch --cov-report=term-missing --dicdirs=/lib64/mecab/dic/ipadic/ --dicdirs=/lib64/mecab/dic/unidic-csj-3.0.1.1/
+poetry run pytest -v -s -p no:warnings -p no:cacheprovider --cov=youcab --cov-branch --cov-report=term-missing
 poetry run pytest -v --doctest-modules youcab

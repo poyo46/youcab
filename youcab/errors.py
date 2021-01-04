@@ -20,3 +20,11 @@ class InvalidTokenizerError(YoucabError):
     """
 
     pass
+
+
+class MecabConfigError(YoucabError):
+    """
+    Raised when the ``mecab-config`` command is not found.
+    """
+
+    pass

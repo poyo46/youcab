@@ -1,13 +1,17 @@
-import os
 from typing import Callable, List, Optional
 
 import pytest
 
 from youcab import youcab
+from youcab.config import get_dicdirs
 from youcab.errors import InvalidTokenizerError, NotFoundNodeFormatError
 from youcab.word import Word
 
 
+@pytest.mark.parametrize(
+    "dicdir",
+    get_dicdirs(),
+)
 @pytest.mark.parametrize(
     "node_format",
     [None, r"%m\\n"],
@@ -16,23 +20,15 @@ from youcab.word import Word
     "unk_format",
     [None, r"%m\\n"],
 )
-def test__mecab_tagger(dicdirs, node_format, unk_format):
+def test__mecab_tagger(dicdir, node_format, unk_format):
     tokens = ["毎日", "とても", "歩き", "ます"]
     text = "".join(tokens)
-    for dicdir in dicdirs:
-        tagger = youcab._mecab_tagger(
-            dicdir=dicdir, node_format=node_format, unk_format=unk_format
-        )
-        result = tagger.parse(text)
-        for token in tokens:
-            assert token in result
-
-
-def test__mecab_tagger_env_vars_should_be_available(dicdirs):
-    os.environ["MECAB_DICDIR"] = dicdirs[-1]
-    tagger = youcab._mecab_tagger(node_format=r"%m\\n")
-    result = tagger.parse("こんにちは")
-    assert result is not None
+    tagger = youcab._mecab_tagger(
+        dicdir=dicdir, node_format=node_format, unk_format=unk_format
+    )
+    result = tagger.parse(text)
+    for token in tokens:
+        assert token in result
 
 
 @pytest.mark.parametrize(
@@ -50,10 +46,13 @@ def test__find_index(items, equal_to, include, expect):
     assert youcab._find_index(items, equal_to=equal_to, include=include) == expect
 
 
-def test__auto_node_format(dicdirs):
-    for dicdir in dicdirs:
-        node_format = youcab._auto_node_format(dicdir=dicdir)
-        assert len(node_format) > 0
+@pytest.mark.parametrize(
+    "dicdir",
+    get_dicdirs(),
+)
+def test__auto_node_format(dicdir):
+    node_format = youcab._auto_node_format(dicdir=dicdir)
+    assert len(node_format) > 0
 
 
 def test__auto_node_format_if_not_found(monkeypatch):
@@ -127,15 +126,21 @@ def test_check_tokenizer_raises_error_if_invalid(tokenize):
         youcab.check_tokenizer(tokenize)
 
 
-def test_can_generate_tokenizer(dicdirs):
-    for dicdir in dicdirs:
-        print("dicdir = " + str(dicdir))
-        youcab.generate_tokenizer(dicdir=dicdir)
+@pytest.mark.parametrize(
+    "dicdir",
+    get_dicdirs(),
+)
+def test_can_generate_tokenizer(dicdir):
+    youcab.generate_tokenizer(dicdir=dicdir)
 
 
-def test_generate_tokenizer_raises_error_if_node_format_is_invalid(dicdirs):
+@pytest.mark.parametrize(
+    "dicdir",
+    get_dicdirs(),
+)
+def test_generate_tokenizer_raises_error_if_node_format_is_invalid(dicdir):
     with pytest.raises(InvalidTokenizerError):
-        youcab.generate_tokenizer(dicdir=dicdirs[0], node_format=r"%m%H\\n")
+        youcab.generate_tokenizer(dicdir=dicdir, node_format=r"%m%H\\n")
 
 
 def test_generated_tokenizer_returns_unknown_token_as_noun(monkeypatch):
